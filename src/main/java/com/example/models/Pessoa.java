@@ -21,6 +21,7 @@ import lombok.Data;
 public class Pessoa {
 
 	@Id @GeneratedValue( strategy = GenerationType.AUTO)
+	@Column( name = "id")
 	private Integer idPessoa;
 	
 	@Column( name = "nome" )
