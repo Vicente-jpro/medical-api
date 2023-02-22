@@ -1,6 +1,7 @@
 package com.example.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.dto.ContactoDto;
 import com.example.dto.PessoaDto;
+import com.example.exceptions.PessoaNotFoundException;
 import com.example.models.Contacto;
 import com.example.models.Pessoa;
 import com.example.repository.PessoaRepository;
@@ -34,7 +36,7 @@ public class PessoaService {
 		pessoa.setBi( pessoaDto.getBi() );
 		pessoa.setNome( pessoaDto.getNome());
 	
-		List<Contacto> listaContacto = this.converterContacto(pessoaDto.getContactos());
+		List<Contacto> listaContacto = this.converterContacto(pessoa, pessoaDto.getContactos());
 		pessoaRepository.save(pessoa);
 		contactoService.salvarTodos(listaContacto);
 		pessoa.setContactos(listaContacto);
@@ -44,7 +46,7 @@ public class PessoaService {
 	}
 	
 	
-	public List<Contacto> converterContacto(List<ContactoDto> listaContactoDto){
+	public List<Contacto> converterContacto(Pessoa pessoa, List<ContactoDto> listaContactoDto){
 		log.info("Obtendo os contactos do da listaContactoDto...");
 		
 		return listaContactoDto
@@ -54,9 +56,17 @@ public class PessoaService {
 					contacto.setEmail( dto.getEmail() );
 					contacto.setTelemovel(dto.getTelemovel());
 					contacto.setWhatsapp( dto.getWhatsapp() );
+					contacto.setPessoa( pessoa );
 					
 					log.info("Fim da obtenção dos contactos.");
 					return contacto;
 					}).collect(Collectors.toList() );
+	}
+	
+	public Pessoa getPessoa(Integer idPessoa) {
+		return this.pessoaRepository
+				.findById(idPessoa)
+				.orElseThrow( () -> new PessoaNotFoundException("Id invalido . Pessoa não encontada. id: "+idPessoa));
+		
 	}
 }
