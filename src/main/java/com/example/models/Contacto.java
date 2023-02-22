@@ -1,13 +1,12 @@
 package com.example.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -30,7 +29,8 @@ public class Contacto {
 	@Column( name = "email", length = 30)
 	private String email;
 	
-	@OneToMany(mappedBy = "contacto")
-	private List<Pessoa> pessoas;
+	@ManyToOne
+	@JoinColumn( name = "pessoa_id")
+	private Pessoa pessoa;
 
 }
