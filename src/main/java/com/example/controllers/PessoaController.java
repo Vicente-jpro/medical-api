@@ -17,7 +17,6 @@ import com.example.services.PessoaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
