@@ -15,5 +15,4 @@ public class ContactoService {
 	public Contacto salvar(Contacto contacto) {
 		return this.contactoRepository.save(contacto);
 	}
-	
 }

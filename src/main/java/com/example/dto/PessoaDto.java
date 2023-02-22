@@ -1,5 +1,7 @@
 package com.example.dto;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +20,6 @@ public class PessoaDto {
 	private String nome;
 	private String bi;
 
-	private Contacto contacto;
+	private List<ContactoDto> contactos;
 
 }
