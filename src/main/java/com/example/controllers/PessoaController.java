@@ -1,7 +1,5 @@
 package com.example.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,8 +47,7 @@ public class PessoaController {
 	public Pessoa getPessoa(@PathVariable("id") Integer idPessoa) {
 		return this.pessoaService.getPessoa(idPessoa);
 	}
-	
-	
+
 	
 	@GetMapping("/contactos/{id}")
 	@ApiOperation("Buscar pessoa com os seus contactos.")
