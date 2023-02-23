@@ -46,6 +46,17 @@ public class PessoaService {
 		
 	}
 	
+
+	public PessoaDto findByPessoaIdFetchContacts(Integer idPessoa){
+		Pessoa pessoa = this.getPessoa(idPessoa);
+		return PessoaDto
+				.builder()
+				.idPessoa( pessoa.getIdPessoa() )
+				.nome( pessoa.getNome())
+				.bi(pessoa.getBi())
+				.contactos( converterListaContacto( pessoa.getContactos()))
+				.build();
+	}
 	
 	public List<Contacto> converterListaContacto(Pessoa pessoa, List<ContactoDto> listaContactoDto){
 		log.info("Obtendo os contactos do da listaContactoDto...");
@@ -92,6 +103,8 @@ public class PessoaService {
 				}).collect(Collectors.toList() );
 	}
 	
+
+	
 	public Pessoa getPessoa(Integer idPessoa) {
 		return this.pessoaRepository
 				.findById(idPessoa)
@@ -99,7 +112,4 @@ public class PessoaService {
 		
 	}
 	
-	public List<Contacto> getPessoaAndContactos(Integer idPessoa){
-		return this.contactoService.getPessoaAndContactos(idPessoa);
-	}
 }

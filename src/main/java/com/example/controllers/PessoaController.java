@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dto.PessoaDto;
-import com.example.models.Contacto;
 import com.example.models.Pessoa;
 import com.example.services.PessoaService;
 
@@ -53,15 +52,15 @@ public class PessoaController {
 	
 	
 	
-	@GetMapping("/pessoa-contactos/{id}")
+	@GetMapping("/contactos/{id}")
 	@ApiOperation("Buscar pessoa com os seus contactos.")
 	@ApiResponses({
 		@ApiResponse( code = 302, message = "Pessoa encontrada"),
 		@ApiResponse( code = 404, message = "Passoa não encontrada")
 	})
 	@ResponseStatus(HttpStatus.FOUND)
-	public List<Contacto> getPessoaComContactos(@PathVariable("id") Integer idPessoa) {
-		return this.pessoaService.getPessoaAndContactos(idPessoa);
+	public PessoaDto getPessoaComContactos(@PathVariable("id") Integer idPessoa) {
+		return this.pessoaService.findByPessoaIdFetchContacts(idPessoa);
 	}
 	
 }
