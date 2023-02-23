@@ -7,5 +7,6 @@ import com.example.models.Pessoa;
 
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Integer>{
+	
 
 }

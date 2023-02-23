@@ -31,4 +31,8 @@ public class ContactoService {
 		
 		log.info("Fim da operação salvar");
 	}
+	
+	public List<Contacto> getPessoaAndContactos(Integer idPessoa){
+		return this.contactoRepository.findByPessoaIdFetchContacts(idPessoa);
+	}
 }

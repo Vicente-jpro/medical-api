@@ -1,7 +1,6 @@
 package com.example.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -29,24 +28,26 @@ public class PessoaService {
 	private ContactoService contactoService;
 	
 	@Transactional
-	public Pessoa salvar(PessoaDto pessoaDto) {
+	public PessoaDto salvar(PessoaDto pessoaDto) {
 		log.info("Salvando a pessoa...");
 		
 		Pessoa pessoa = new Pessoa();
 		pessoa.setBi( pessoaDto.getBi() );
 		pessoa.setNome( pessoaDto.getNome());
 	
-		List<Contacto> listaContacto = this.converterContacto(pessoa, pessoaDto.getContactos());
+		List<Contacto> listaContacto = this.converterListaContacto(pessoa, pessoaDto.getContactos());
 		pessoaRepository.save(pessoa);
 		contactoService.salvarTodos(listaContacto);
 		pessoa.setContactos(listaContacto);
 		
-		return pessoa;
+		PessoaDto psDto = converterPessoaParaDto(pessoa);
+		
+		return psDto;
 		
 	}
 	
 	
-	public List<Contacto> converterContacto(Pessoa pessoa, List<ContactoDto> listaContactoDto){
+	public List<Contacto> converterListaContacto(Pessoa pessoa, List<ContactoDto> listaContactoDto){
 		log.info("Obtendo os contactos do da listaContactoDto...");
 		
 		return listaContactoDto
@@ -63,10 +64,42 @@ public class PessoaService {
 					}).collect(Collectors.toList() );
 	}
 	
+	public PessoaDto converterPessoaParaDto(Pessoa pessoa) {
+		return PessoaDto
+				.builder()
+				.idPessoa( pessoa.getIdPessoa())
+				.nome( pessoa.getNome())
+				.bi(pessoa.getBi())
+				.contactos( converterListaContacto(pessoa.getContactos()) )
+				.build();
+
+	}
+	public List<ContactoDto> converterListaContacto(List<Contacto> listaContacto){
+
+		
+		return listaContacto
+				.stream()
+				.map( contacto -> {
+					
+					return ContactoDto
+							.builder()
+							.id(contacto.getIdContacto())
+							.telemovel( contacto.getTelemovel()	)
+							.whatsapp(contacto.getWhatsapp())	
+							.email(contacto.getEmail())
+							.build();
+					
+				}).collect(Collectors.toList() );
+	}
+	
 	public Pessoa getPessoa(Integer idPessoa) {
 		return this.pessoaRepository
 				.findById(idPessoa)
 				.orElseThrow( () -> new PessoaNotFoundException("Id invalido . Pessoa não encontada. id: "+idPessoa));
 		
+	}
+	
+	public List<Contacto> getPessoaAndContactos(Integer idPessoa){
+		return this.contactoService.getPessoaAndContactos(idPessoa);
 	}
 }

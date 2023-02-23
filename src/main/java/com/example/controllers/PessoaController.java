@@ -1,5 +1,7 @@
 package com.example.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dto.PessoaDto;
+import com.example.models.Contacto;
 import com.example.models.Pessoa;
 import com.example.services.PessoaService;
 
@@ -21,7 +24,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RestController
-@RequestMapping("/pessoas")
+@RequestMapping("api/pessoas")
 public class PessoaController {
 	
 	@Autowired
@@ -32,7 +35,7 @@ public class PessoaController {
 	@ApiOperation("Salvar pessoa com os seus contactos")
 	@ApiResponse( code = 200, message = "Pessoa salva com sucesso")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Pessoa salvar(@RequestBody PessoaDto pessoaDto) {
+	public PessoaDto salvar(@RequestBody PessoaDto pessoaDto) {
 		log.info("PessoaController - Salvar pessoa.");
 		return pessoaService.salvar(pessoaDto);
 	}
@@ -46,6 +49,19 @@ public class PessoaController {
 	@ResponseStatus(HttpStatus.FOUND)
 	public Pessoa getPessoa(@PathVariable("id") Integer idPessoa) {
 		return this.pessoaService.getPessoa(idPessoa);
+	}
+	
+	
+	
+	@GetMapping("/pessoa-contactos/{id}")
+	@ApiOperation("Buscar pessoa com os seus contactos.")
+	@ApiResponses({
+		@ApiResponse( code = 302, message = "Pessoa encontrada"),
+		@ApiResponse( code = 404, message = "Passoa não encontrada")
+	})
+	@ResponseStatus(HttpStatus.FOUND)
+	public List<Contacto> getPessoaComContactos(@PathVariable("id") Integer idPessoa) {
+		return this.pessoaService.getPessoaAndContactos(idPessoa);
 	}
 	
 }
