@@ -3,6 +3,7 @@ package com.example.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,11 +30,21 @@ public class PessoaController {
 	
 	
 	@PostMapping
-	@ApiOperation("Salvar pessoa com os seus contactos")
-	@ApiResponse( code = 200, message = "Pessoa salva com sucesso")
+	@ApiOperation("Salvar pessoa com os seus contactos.")
+	@ApiResponse( code = 200, message = "Pessoa salva com sucesso.")
 	@ResponseStatus(HttpStatus.CREATED)
 	public PessoaDto salvar(@RequestBody PessoaDto pessoaDto) {
 		log.info("PessoaController - Salvar pessoa.");
+		return pessoaService.salvar(pessoaDto);
+	}
+	
+	
+	@PatchMapping
+	@ApiOperation("Atualizar pessoa com os seus contactos.")
+	@ApiResponse( code = 200, message = "Pessoa atualizado com sucesso.")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public PessoaDto update(@RequestBody PessoaDto pessoaDto) {
+		log.info("PessoaController - atualizar pessoa.");
 		return pessoaService.salvar(pessoaDto);
 	}
 	
@@ -45,6 +56,7 @@ public class PessoaController {
 			})
 	@ResponseStatus(HttpStatus.FOUND)
 	public Pessoa getPessoa(@PathVariable("id") Integer idPessoa) {
+		log.info("PessoaController - pesquisar pessoa com id: "+idPessoa);
 		return this.pessoaService.getPessoa(idPessoa);
 	}
 
@@ -57,6 +69,7 @@ public class PessoaController {
 	})
 	@ResponseStatus(HttpStatus.FOUND)
 	public PessoaDto getPessoaComContactos(@PathVariable("id") Integer idPessoa) {
+		log.info("PessoaController - pesquisar pessoa com os seus contactos id: "+idPessoa);
 		return this.pessoaService.findByPessoaIdFetchContacts(idPessoa);
 	}
 	

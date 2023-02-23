@@ -32,6 +32,7 @@ public class PessoaService {
 		log.info("Salvando a pessoa...");
 		
 		Pessoa pessoa = new Pessoa();
+		pessoa.setIdPessoa( pessoaDto.getIdPessoa());;
 		pessoa.setBi( pessoaDto.getBi() );
 		pessoa.setNome( pessoaDto.getNome());
 	
