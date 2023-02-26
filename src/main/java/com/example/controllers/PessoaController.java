@@ -40,12 +40,12 @@ public class PessoaController {
 	
 	
 	@PatchMapping
-	@ApiOperation("Atualizar pessoa com os seus contactos.")
+	@ApiOperation("Atualizar pessoa.")
 	@ApiResponse( code = 200, message = "Pessoa atualizado com sucesso.")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public PessoaDto update(@RequestBody PessoaDto pessoaDto) {
+	public Pessoa update(@RequestBody Pessoa pessoa) {
 		log.info("PessoaController - atualizar pessoa.");
-		return pessoaService.salvar(pessoaDto);
+		return pessoaService.update(pessoa);
 	}
 	
 	@GetMapping("/{id}")

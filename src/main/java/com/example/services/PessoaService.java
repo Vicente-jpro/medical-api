@@ -29,7 +29,7 @@ public class PessoaService {
 	
 	@Transactional
 	public PessoaDto salvar(PessoaDto pessoaDto) {
-		log.info("Salvando a pessoa...");
+		log.info("PessoaService - Salvando a pessoa...");
 		
 		Pessoa pessoa = new Pessoa();
 		pessoa.setIdPessoa( pessoaDto.getIdPessoa());;
@@ -42,9 +42,19 @@ public class PessoaService {
 		pessoa.setContactos(listaContacto);
 		
 		PessoaDto psDto = converterPessoaParaDto(pessoa);
-		
+		log.info("PessoaService - Fim da operação salvar.");
 		return psDto;
 		
+	}
+	
+	public Pessoa update(Pessoa pessoa) {
+		log.info("PessoaService - Atualizando a pessoa");
+	
+		this.pessoaRepository.save(pessoa);
+		
+		log.info("PessoaService - Fim da atualizando a pessoa");
+		
+		return pessoa;
 	}
 	
 
@@ -60,7 +70,7 @@ public class PessoaService {
 	}
 	
 	public List<Contacto> converterListaContacto(Pessoa pessoa, List<ContactoDto> listaContactoDto){
-		log.info("Obtendo os contactos do da listaContactoDto...");
+		log.info("PessoaService - Obtendo os contactos do da listaContactoDto...");
 		
 		return listaContactoDto
 				.stream()
