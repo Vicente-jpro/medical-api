@@ -25,14 +25,11 @@ public class ContactoService {
 
 	@Transactional
 	public void salvarTodos(List<Contacto> listaContacto) {
-		log.info("Salvando os contactos da pessoa.");
+		log.info("ContactoService - Salvando os contactos da pessoa.");
 		
 		this.contactoRepository.saveAll(listaContacto);
 		
-		log.info("Fim da operação salvar");
+		log.info("ContactoService - Fim da operação salvar");
 	}
-	
-//	public List<Contacto> getPessoaAndContactos(Integer idPessoa){
-//		return this.contactoRepository.findByPessoaIdFetchContacts(idPessoa);
-//	}
+
 }
