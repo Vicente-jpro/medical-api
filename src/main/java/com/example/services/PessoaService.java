@@ -96,7 +96,7 @@ public class PessoaService {
 					
 					return ContactoDto
 							.builder()
-							.id(contacto.getIdContacto())
+							.idContacto(contacto.getIdContacto())
 							.telemovel( contacto.getTelemovel()	)
 							.whatsapp(contacto.getWhatsapp())	
 							.email(contacto.getEmail())
