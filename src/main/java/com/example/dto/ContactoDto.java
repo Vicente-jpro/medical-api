@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class ContactoDto {
 
-	private Integer id;
+	private Integer idContacto;
 	private String telemovel;
 	private String whatsapp;
 	private String email;

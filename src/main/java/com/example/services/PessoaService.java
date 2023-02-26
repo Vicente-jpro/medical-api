@@ -66,6 +66,7 @@ public class PessoaService {
 				.stream()
 				.map( dto ->{
 					Contacto contacto = new Contacto();
+					contacto.setIdContacto( dto.getIdContacto() );
 					contacto.setEmail( dto.getEmail() );
 					contacto.setTelemovel(dto.getTelemovel());
 					contacto.setWhatsapp( dto.getWhatsapp() );
