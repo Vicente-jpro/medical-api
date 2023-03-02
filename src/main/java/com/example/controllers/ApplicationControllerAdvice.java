@@ -9,26 +9,24 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.exceptions.PessoaNotFoundException;
+import com.example.uteis.ApiErrors;
+
 
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
 
+	private String mensagemErro;
 	
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ApiErrors produtoNotFoundExceptionHandle(ProdutoNotFoundException ex) {
+	public ApiErrors PessoaNotFoundExceptionHandle(PessoaNotFoundException ex) {
 		this.mensagemErro = ex.getMessage();
 		return new ApiErrors(mensagemErro);
 	}
 	
-	@ExceptionHandler
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ApiErrors pedidoNotFoundExceptionHandle(PedidoNotFoundException ex) {
-		this.mensagemErro = ex.getMessage();
-		return new ApiErrors(mensagemErro);
-	}
-	
+
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ApiErrors validateFieldsHandle( MethodArgumentNotValidException ex ) {
