@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -23,6 +25,7 @@ public class Municipio {
 	@Column( name = "nome_municipio")
 	private String nomeMunicipio;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn( name = "provincia_id")
 	private Provincia provincia;
