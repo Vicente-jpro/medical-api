@@ -2,6 +2,7 @@ package com.example.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.exceptions.ProvinciaNotFoundException;
@@ -11,6 +12,7 @@ import com.example.repository.ProvinciaRepository;
 @Service
 public class ProvinciaService {
 
+	@Autowired
 	private ProvinciaRepository provinciaRepository;
 	
 	public List<Provincia> listarTodas() {
