@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RestController
-@RequestMapping("api/pessoas")
+@RequestMapping("/api/pessoas")
 public class PessoaController {
 	
 	@Autowired
@@ -61,14 +61,14 @@ public class PessoaController {
 	}
 
 	
-	@GetMapping("/contactos/{id}")
+	@GetMapping("/{id_pessoa}/contactos")
 	@ApiOperation("Buscar pessoa com os seus contactos.")
 	@ApiResponses({
 		@ApiResponse( code = 302, message = "Pessoa encontrada"),
 		@ApiResponse( code = 404, message = "Passoa não encontrada")
 	})
 	@ResponseStatus(HttpStatus.FOUND)
-	public PessoaDto getPessoaComContactos(@PathVariable("id") Integer idPessoa) {
+	public PessoaDto getPessoaComContactos(@PathVariable("id_pessoa") Integer idPessoa) {
 		log.info("PessoaController - pesquisar pessoa com os seus contactos id: "+idPessoa);
 		return this.pessoaService.findByPessoaIdFetchContacts(idPessoa);
 	}
