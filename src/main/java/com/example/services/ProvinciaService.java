@@ -13,7 +13,7 @@ public class ProvinciaService {
 
 	private ProvinciaRepository provinciaRepository;
 	
-	public List<Provincia> findAll() {
+	public List<Provincia> listarTodas() {
 		return this.provinciaRepository.findAll();
 	}
 	
