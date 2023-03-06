@@ -7,4 +7,6 @@ import lombok.Data;
 @Builder
 public class MunicipioDto {
 
+    private Integer idMunicipio;
+    private String nomeMunicipio;
 }
